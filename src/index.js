@@ -38,9 +38,16 @@ fetch("http://localhost:3000/images")
         }
     });
 
+
+
+// aki Dan ive just seen this extrastuff below
+//hi dan. Hope you are doing alright through the weekend. I'm done with both code challenges. the second,flatagram(this one), has an extra of using random images. i know I can do this by creating a sample server and extracting the random images to the random server and then from the server to my code and then configure. i have limited time to do all this given that I haven't slept for the last 48hrs or more. this still works perfectly.
+
+
+
 // let dogImage = document.getElementById("card-image");
 
-// // Add event listener to the image element
+// 
 // dogImage.addEventListener("click", function() {
 //     fetch("https://dog.ceo/api/breeds/image/random")
 //         .then(response => response.json())
@@ -152,20 +159,20 @@ commentForm.addEventListener("submit",function(e){
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(imageformat) // Assuming commentformat is already defined
+        body: JSON.stringify(imageformat) 
       })
       .then(response => {
         if (response.ok) {
-          return response.json(); // Parse the JSON response
+          return response.json(); 
         } else {
           throw new Error('Network response was not ok');
         }
       })
       .then(data => {
-        //console.log('Likes updated successfully:', data); // Handle the successful response data
+        //console.log('Likes updated successfully:', data); 
        console.log( document.getElementById("like-count").innerText = `${data.likes} likes`);
       })
       .catch(error => {
-       // console.error('Error:', error); // Handle any errors
+       // console.error('Error:', error);
       });
  }
