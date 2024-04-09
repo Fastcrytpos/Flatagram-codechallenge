@@ -84,6 +84,8 @@ body {
 .comments li {
   margin: 2px 0;
   letter-spacing: 0.2px;
+  border: 2px solid black;
+  
 }
 
 .comment-form {

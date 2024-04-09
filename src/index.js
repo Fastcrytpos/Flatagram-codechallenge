@@ -8,6 +8,7 @@ let commentformat ={
     imageId:"",
     content:"",
 }
+
 //console.log(commentformat)
 
 fetch("http://localhost:3000/images")
@@ -87,49 +88,92 @@ likeButton.addEventListener("click",function (){
 document.getElementById("comments-list").innerHTML=""
 
 fetch("http://localhost:3000/comments")
-    .then(res=>res.json())
-    .then(comm=>{
-        //console.log(comm)
-      for(i of comm){
-       // console.log(i.content);
-        
-       
+    .then(res => res.json())
+    .then(comm => {
+        for (let i of comm) {
+            let j = document.createElement("li");
+            j.innerText = i.content;
+            j.id = `comment-${commentcount++}`;
+            commentformat.id = `${j.id}`;
+            document.getElementById("comments-list").appendChild(j);
+        }
+        createDeleteButtons(); // Add delete buttons after fetching comments
+    });
 
-        let j=document.createElement("li")
-        j.innerText=`${i.content}`
-        j.id=commentcount++;
-        commentformat.id=`${j.id}`
-        //console.log(commentformat)
-        document.getElementById("comments-list").appendChild(j)
-      }
-})
-
-
-let commentForm=document.getElementById("comment-form")
-commentForm.addEventListener("submit",function(e){
+let commentForm = document.getElementById("comment-form");
+commentForm.addEventListener("submit", function(e) {
     e.preventDefault();
-    // let comm3={}
-    // console.log(document.getElementById("comment").value)
-
-    // comm3.push(document.getElementById("comment").value)
-    // comm3.push(document.getElementById("comment").value)
-    // comm3.push(document.getElementById("comment").value)
-
-
-    let g=document.createElement("li")
-    g.innerText=(document.getElementById("comment").value)
-    g.id=commentcount++;
-
-    commentformat.id=`${g.id}`
-    commentformat.content=`${g.innerText}`
-
-    document.getElementById("comments-list").appendChild(g)
-    //console.log(g.id)
-    //console.log(commentformat)
-    updateCommentServer()
+    let g = document.createElement("li");
+    g.innerText = document.getElementById("comment").value;
+    g.id = commentcount++;
+    commentformat.id = `${g.id}`;
+    commentformat.content = `${g.innerText}`;
+    document.getElementById("comments-list").appendChild(g);
+    updateCommentServer();
     commentForm.reset();
+    createDeleteButtons(); 
+    console.log(g.id)
+});
 
-})
+function createDeleteButtons() {
+    let listItems = document.querySelectorAll("#comments-list li");
+    listItems.forEach(item => {
+        if (!item.querySelector("button")) { // Check if delete button already exists
+            let deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Delete";
+            item.appendChild(deleteBtn);
+            deleteBtn.addEventListener("click", (e) => {
+                e.target.parentNode.remove();
+                deleteCommentServer(e.target.parentNode.id); 
+                console.log(e.target.parentNode.id);
+            });
+            
+        }
+    });
+}
+
+function deleteCommentServer(commentId) {
+  console.log(commentId)
+    fetch(`http://localhost:3000/comments/${commentId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Comment deleted successfully.');
+        } else {
+            console.error('Failed to delete comment.');
+        }
+    })
+    .catch(error => {
+        console.error('Error deleting comment:', error);
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  function updateCommentServer(){
     fetch("http://localhost:3000/comments", {
         method: "POST",
