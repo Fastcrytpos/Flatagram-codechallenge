@@ -41,14 +41,10 @@ fetch("http://localhost:3000/images")
 
 
 
-// aki Dan ive just seen this extrastuff below
-//hi dan. Hope you are doing alright through the weekend. I'm done with both code challenges. the second,flatagram(this one), has an extra of using random images. i know I can do this by creating a sample server and extracting the random images to the random server and then from the server to my code and then configure. i have limited time to do all this given that I haven't slept for the last 48hrs or more. this still works perfectly.
-
-
 
 // let dogImage = document.getElementById("card-image");
 
-// 
+
 // dogImage.addEventListener("click", function() {
 //     fetch("https://dog.ceo/api/breeds/image/random")
 //         .then(response => response.json())
@@ -121,6 +117,7 @@ function createDeleteButtons() {
         if (!item.querySelector("button")) { // Check if delete button already exists
             let deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Delete";
+            deleteBtn.classList.add("delete-btn");
             item.appendChild(deleteBtn);
             deleteBtn.addEventListener("click", (e) => {
                 e.target.parentNode.remove();

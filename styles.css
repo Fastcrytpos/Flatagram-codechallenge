@@ -82,9 +82,11 @@ body {
 }
 
 .comments li {
-  margin: 2px 0;
+  margin: 4px 0;
   letter-spacing: 0.2px;
   border: 2px solid black;
+  height: fit-content;
+  line-height: normal;
   
 }
 
@@ -124,4 +126,10 @@ body {
 
 .comment-button:focus {
   outline: none;
+}
+.delete-btn {
+  float: right;
+  margin-left: 10px;
+  font-size: 0.8rem;
+  
 }
